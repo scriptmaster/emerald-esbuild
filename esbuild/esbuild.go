@@ -16,8 +16,22 @@ import (
 func BuildApp() {
 	var dir = "app"
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		fmt.Println("Skipping esbuild")
-		return
+		fmt.Println("No app dir, creating...")
+		WriteApp()
+	}
+	if _, err := os.Stat(dir + "main.tsx"); os.IsNotExist(err) {
+		fmt.Println("No app main.tsx, creating...")
+		WriteApp()
+	}
+	if _, err := os.Stat("./importmap.json"); os.IsNotExist(err) {
+		fmt.Println("Cannot find importmap.json, creating...")
+		WriteImportMap("./importmap.json")
+	}
+	if _, err := os.Stat("./deno.json"); os.IsNotExist(err) {
+		fmt.Println("Cannot find deno.json, linking...")
+		if err = os.Symlink("importmap.json", "deno.json"); err != nil {
+			WriteImportMap("./deno.json")
+		}
 	}
 	fmt.Println("Bundling with esbuild...")
 	result := api.Build(api.BuildOptions{

@@ -2,3 +2,4 @@ tmp
 bin
 pkg
 obj
+.vscode
