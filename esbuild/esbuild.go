@@ -19,7 +19,7 @@ func BuildApp() {
 		fmt.Println("No app dir, creating...")
 		WriteApp()
 	}
-	if _, err := os.Stat(dir + "main.tsx"); os.IsNotExist(err) {
+	if _, err := os.Stat(path.Join(dir, "./main.tsx")); os.IsNotExist(err) {
 		fmt.Println("No app main.tsx, creating...")
 		WriteApp()
 	}
