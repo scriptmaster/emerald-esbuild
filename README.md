@@ -8,6 +8,15 @@ built everytime.
 
 `go install github.com/scriptmaster/emerald-esbuild@latest`
 
+This installs to `$GOPATH/bin` dir. Ensure GOPATH was set to `$HOME/go` and
+`$GOPATH/bin` was added to your `PATH` env var.
+
+## Pre-requisites
+
+- Install go: `https://go.dev/doc/install`
+- Usually, `GOROOT` is `/usr/local/go` and `GOPATH` is `$HOME/go` for user
+  packages. Do, `go env` to list GOROOT and GOPATH.
+
 ## Usage
 
 After go install was successful.
