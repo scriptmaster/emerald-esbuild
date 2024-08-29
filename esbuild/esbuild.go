@@ -2,6 +2,7 @@ package esbuild
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -13,7 +14,7 @@ import (
 	"github.com/evanw/esbuild/pkg/api"
 )
 
-func BuildApp() {
+func BuildApp() error {
 	var dir = "app"
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		fmt.Println("No app dir, creating...")
@@ -60,11 +61,13 @@ func BuildApp() {
 	})
 
 	if len(result.Errors) > 0 {
-		fmt.Println("esbuild Errors: %v", result.Errors)
-		// os.Exit(1)
+		fmt.Printf("esbuild Errors: %v", result.Errors)
+		return errors.New("esbuild api error: " + result.Errors[0].Text)
 	}
 
 	fmt.Println("esbuild Done")
+
+	return nil
 }
 
 func envPlugin() api.Plugin {
@@ -76,6 +79,9 @@ func envPlugin() api.Plugin {
 			// namespace to reserve them for this plugin.
 			build.OnResolve(api.OnResolveOptions{Filter: `^env$`},
 				func(args api.OnResolveArgs) (api.OnResolveResult, error) {
+					// if (kind === "entry-point" && options?.fromEntryFile) {
+					// 	return { path, namespace: "esbuild-svelte-direct-import" };
+					// }
 					return api.OnResolveResult{
 						Path:      args.Path,
 						Namespace: "env-ns",

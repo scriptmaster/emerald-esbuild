@@ -8,3 +8,10 @@ build:
 
 run:
 	go run .
+
+test:
+	go test ./...
+
+release:
+	git tab v1.0.0
+	git push origin v1.0.0
