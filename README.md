@@ -16,12 +16,9 @@ After go install was successful.
 
 on an empty directory to start building files.
 
-## Example cli builds:
+## How it works
 
-### Angular-CLI
-
-### vue cli
-
-### svelte cli
-
-### vite cli
+- `emerald-esbuild` is a wrapper on esbuild api.
+- It transforms the entrypoint `app/main.tsx` and any imports within it
+  (downloads via its aliases in importmap.json) and bundles into `dist/main.js`
+  and `dist/main.css`
