@@ -1,8 +1,8 @@
 # emerald-esbuild
 
 Build client apps with esbuild and typescript without any node_modules folder.
-File are pulled from https://esm.sh/<package_name@version> on the fly and built
-everytime.
+Files are downloded from https://esm.sh/<package_name@version> on the fly and
+built everytime.
 
 ## Install
 
